@@ -11,9 +11,14 @@ pdo_metaheuristic <- function(obj.fun, pop.size = 30, dim = 2, lb, ub, gen = 100
   ub <- rep(ub, dim)
   
   # 1. Inicialización
-  # Crear población inicial aleatoria
-  pop <- matrix(runif(pop.size * dim, min = lb, max = ub), 
-                nrow = pop.size, ncol = dim, byrow = TRUE)
+  if (EE == TRUE) {
+    # Exploración Explícita EEEA: 
+    print("Exploracion Explicita con EEEA")
+  } else {
+    # Crear población inicial aleatoria
+    pop <- matrix(runif(pop.size * dim, min = lb, max = ub), 
+                  nrow = pop.size, ncol = dim, byrow = TRUE)
+  }
   
   # Evaluar aptitud (fitness) inicial
   fitness <- apply(pop, 1, obj.fun)
@@ -35,14 +40,9 @@ pdo_metaheuristic <- function(obj.fun, pop.size = 30, dim = 2, lb, ub, gen = 100
       
       if (r1 < 0.5) {
         # --- Fase de Exploración: Comunicación y Vigilancia ---
-        if (EE == TRUE) {
-          # Exploración Explícita EEEA: 
-          print("Exploracion Explicita con EEEA")
-        } else {
-          # Exploración Estándar PDO (Hacia el líder)
-          # Los perritos se mueven basados en el líder y la comunicación del grupo
-          pop[i, ] <- best_pos - (pop[i, ] * DS) * runif(dim)
-        }
+        # Exploración Estándar PDO (Hacia el líder)
+        # Los perritos se mueven basados en el líder y la comunicación del grupo
+        pop[i, ] <- best_pos - (pop[i, ] * DS) * runif(dim)
       } else {
         # --- Fase de Explotación: Forrajeo y Construcción ---
         # Movimiento aleatorio local cerca de las mejores zonas de comida
