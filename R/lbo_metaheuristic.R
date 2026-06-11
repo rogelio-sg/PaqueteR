@@ -7,29 +7,41 @@ lbo_metaheuristic <- function(obj.fun, pop.size=30, dim=2, lb, ub, gen=100, pb=0
   if (length(lb) == 1) lb <- rep(lb, dim)
   if (length(ub) == 1) ub <- rep(ub, dim)
   
-  # Inicializar población aleatoria
-  X <- matrix(runif(pop.size * dim), nrow = pop.size)
-  X <- t(apply(X, 1, function(x) lb + (ub - lb) * x))
+  # Inicializar población
+  if (EE == 1 || EE == TRUE) {
+    if (!requireNamespace("EEEA", quietly = TRUE)) {
+      message("La librería 'EEEA' no está instalada. Instalando...")
+      install.packages("EEEA", dependencies = TRUE)
+    }
+    library(EEEA)
+    # Guardar los mejores individuos
+    res_eeea <- ExplicitExploration(fun = obj.fun, lower = lb, upper = ub, n = pop.size, maxiter = gen)
+    X <- res_eeea$par
+    
+  } else {
+    # Inicializar población aleatoria 
+    X <- matrix(runif(pop.size * dim), nrow = pop.size)
+    X <- t(apply(X, 1, function(x) lb + (ub - lb) * x))
+  }
   
   # Evaluar fitness inicial
-  fitness <- apply(X, 1, obj.fun)s
+  fitness <- apply(X, 1, obj.fun)
   
   # Encontrar mejor solución inicial 
   best_idx <- which.min(fitness)
   best.sol <- X[best_idx, ]  
   best.fit <- fitness[best_idx] 
   
-  # Inicializar variables de control y paciencia
+  # Inicializar variables
   history <- c()
   patience <- 0
   bfit_prev <- best.fit
   
   # Parámetros para el Vuelo de Lévy
   beta_levy <- 1.5
-  sigma_u <- (gamma(1 + beta_levy) * sin(pi * beta_levy / 2) / 
-                (gamma((1 + beta_levy) / 2) * beta_levy * 2^((beta_levy - 1) / 2)))^(1 / beta_levy)
+  sigma_u <- (gamma(1 + beta_levy) * sin(pi * beta_levy / 2) / (gamma((1 + beta_levy) / 2) * beta_levy * 2^((beta_levy - 1) / 2)))^(1 / beta_levy)
   
-  # Bucle principal
+  # Bucle
   for (t in 1:gen) { 
     
     history <- c(history, best.fit)
@@ -212,17 +224,17 @@ beale <- function(x) {
 }
 
 #---------------------------------------
-#               PRUEBAS
+# PRUEBAS CON EE
+#---------------------------------------
+res1 <- lbo_metaheuristic(sphere, 30, 2, -5.12, 5.12, 100, 20, EE = TRUE)
+cat("Sphere Best Fit:", res1$best.fit, " | Best Sol:", res1$best.sol, "\n")
+res2 <- lbo_metaheuristic(himmelblau, 40, 2, -5, 5, 150, 0, EE = TRUE)
+cat("Himmelblau Best Fit:", res2$best.fit , " | Best Sol:", res2$best.sol, "\n")
+#---------------------------------------
+# PRUEBAS SIN EE
 #---------------------------------------
 res1 <- lbo_metaheuristic(sphere, 30, 2, -5.12, 5.12, 100, 20)
 cat("Sphere Best Fit:", res1$best.fit, " | Best Sol:", res1$best.sol, "\n")
-res2 <- lbo_metaheuristic(himmelblau, 40, 2, -5, 5, 150, 0)
-cat("Himmelblau Best Fit:", res2$best.fit , " | Best Sol:", res2$best.sol, "\n")
-res3 <- lbo_metaheuristic(beale, 30, 2, -4.5, 4.5, 100, 15)
-cat("Beale Best Fit:", res3$best.fit, " | Best Sol:", res3$best.sol, "\n")
-res4 <- lbo_metaheuristic(rastrigin, 50, 5, -5.12, 5.12, 200, 30)
-cat("Rastrigin Best Fit:", res4$best.fit, " | Best Sol:", res4$best.sol, "\n")
-res5 <- lbo_metaheuristic(rosenbrock, 30, 3, -5, 10, 100, 0)
 cat("Rosenbrock Best Fit:", res5$best.fit, " | Best Sol:", res5$best.sol, "\n")
 res_schwefel_ok <- lbo_metaheuristic(schwefel, 50, 3, -500, 500, 150, 0, FALSE, 0.1, 0.5)
 cat("Schwefel Best Fit:", res_schwefel_ok$best.fit, " | Best Sol:", res_schwefel_ok$best.sol, "\n")
