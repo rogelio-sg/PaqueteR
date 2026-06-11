@@ -3,41 +3,51 @@
 # =========================================================== #
 
 pdo_metaheuristic <- function(obj.fun, pop.size = 30, dim = 2, lb, ub, gen = 100, pb = 0, EE = FALSE) {
-  
+
   # Contador de paciencia para criterio de paro secundario
   patience <- 0
-  
+
   lb <- rep(lb, dim)
   ub <- rep(ub, dim)
-  
-  # 1. Inicialización
+
+  # 1. Inicialización Población
   if (EE == TRUE) {
-    # Exploración Explícita EEEA: 
+    if (!requireNamespace("EEEA", quietly = TRUE)) {
+      message("La librería 'EEEA' no está instalada. Instalándola...")
+      install.packages("EEEA", dependencies = TRUE)
+    }
+    library(EEEA)
+
+    # Crea población inicial por Exploración Explícita
+    # Guardamos los mejores individuos devueltos en '$par' dentro de la población 'pop'
+    pop_eeea <- ExplicitExploration(fun = obj.fun, lower = lb, upper = ub, n = pop.size, maxiter = gen)
+    pop <- pop_eeea$par
+
     print("Exploracion Explicita con EEEA")
   } else {
-    # Crear población inicial aleatoria
-    pop <- matrix(runif(pop.size * dim, min = lb, max = ub), 
+    # Crea población inicial aleatoria (Método Original)
+    pop <- matrix(runif(pop.size * dim, min = lb, max = ub),
                   nrow = pop.size, ncol = dim, byrow = TRUE)
   }
-  
+
   # Evaluar aptitud (fitness) inicial
   fitness <- apply(pop, 1, obj.fun)
-  
+
   # Encontrar el mejor perrito (líder)
   best_idx <- which.min(fitness)
   best_pos <- pop[best_idx, ]
   best_fit <- fitness[best_idx]
-  
+
   # 2. Ciclo de Optimización
   for (t in 1:gen) {
-    
+
     # Parámetro dinámico de comunicación (Efecto de sonido/alerta)
     # Disminuye linealmente para balancear exploración y explotación
     DS <- 2 * exp(-(4 * t / gen)^2)
-    
+
     for (i in 1:pop.size) {
       r1 <- runif(1)
-      
+
       if (r1 < 0.5) {
         # --- Fase de Exploración: Comunicación y Vigilancia ---
         # Exploración Estándar PDO (Hacia el líder)
@@ -56,13 +66,13 @@ pdo_metaheuristic <- function(obj.fun, pop.size = 30, dim = 2, lb, ub, gen = 100
           pop[i, ] <- pop[i, ] + runif(dim) * (pop[random_peer, ] - pop[i, ])
         }
       }
-      
+
       # Control de límites (Boundary check)
       pop[i, ] <- pmax(pmin(pop[i, ], ub), lb)
-      
+
       # Evaluar nueva posición
       new_fitness <- obj.fun(pop[i, ])
-      
+
       # Actualizar si la nueva posición es mejor
       if (new_fitness < fitness[i]) {
         fitness[i] <- new_fitness
@@ -72,7 +82,7 @@ pdo_metaheuristic <- function(obj.fun, pop.size = 30, dim = 2, lb, ub, gen = 100
         }
       }
     }
-    
+
     # Criterio de paro auxiliar (si en 20 generaciones no hay mejoría mayor al 1e-6, se detiene el ciclo)
     if (pb > 0) {
       if (gen > 1){
@@ -86,12 +96,12 @@ pdo_metaheuristic <- function(obj.fun, pop.size = 30, dim = 2, lb, ub, gen = 100
           break
         }
       }
-      
+
       # Actualizar el valor del mejor fitness anterior
       bfit_prev <- best_fit
     }
   }
-  
+
   return(list(best.fit = best_fit, best.sol = best_pos))
 }
 
@@ -100,11 +110,11 @@ pdo_metaheuristic <- function(obj.fun, pop.size = 30, dim = 2, lb, ub, gen = 100
 # -------------------------------------------------------------------------
 res_normal <- pdo_metaheuristic(
   obj.fun = funcion,
-  dim = 10, 
-  lb = -10, 
-  ub = 10, 
-  pop.size = 30, 
-  gen = 50, 
+  dim = 10,
+  lb = -10,
+  ub = 10,
+  pop.size = 30,
+  gen = 50,
   EE = FALSE
 )
 
@@ -126,12 +136,12 @@ plot(res_normal$best.sol, type = "l", col = "blue", lwd = 2,
 
 # Con Exploracion Explicita
 res_explicita <- pdo_optimizer(
-  obj.fun = funcion, 
-  pop.size = 20, 
-  dim = 10, 
-  lb = -10, 
-  ub = 10, 
-  gen = 50, 
+  obj.fun = funcion,
+  pop.size = 20,
+  dim = 10,
+  lb = -10,
+  ub = 10,
+  gen = 50,
   EE = TRUE
 )
 cat("Mejor solución encontrada:", res_explicita$best.sol, "\n")
