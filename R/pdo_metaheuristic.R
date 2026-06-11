@@ -23,7 +23,6 @@ pdo_metaheuristic <- function(obj.fun, pop.size = 30, dim = 2, lb, ub, gen = 100
     pop_eeea <- ExplicitExploration(fun = obj.fun, lower = lb, upper = ub, n = pop.size, maxiter = gen)
     pop <- pop_eeea$par
 
-    print("Exploracion Explicita con EEEA")
   } else {
     # Crea población inicial aleatoria (Método Original)
     pop <- matrix(runif(pop.size * dim, min = lb, max = ub),
