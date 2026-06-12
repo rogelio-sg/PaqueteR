@@ -1,5 +1,4 @@
-#---------------------------------------
-#           FUNCIÓN OBJETIVO
+
 #---------------------------------------
 obj.fun <- function(x){
   y <- sum(x^2)
@@ -10,24 +9,24 @@ obj.fun <- function(x){
 #     FUNCIÓN DEL ALGORITMO (BOA)
 #---------------------------------------
 boa_metaheuristic <- function(obj.fun, pop.size=30, dim=5, lb=-5.12, ub=5.12, gen=100, pb=0, EE=FALSE, p=0.8, a=0.1, c=0.01){
-  
+
   patience <- 0
-  
+
   P0 <- matrix(runif(pop.size*dim, min=-5.12, max=5.12), nrow=pop.size, ncol=dim)
   fitness <- apply(P0, 1, obj.fun)
-  
+
   # Identificando la mejor mariposa (inicial)
   bf <- which.min(fitness)
   g.best <- P0[bf, ]
   g.best.fit <- fitness[bf]
-  
+
   for(i in 1:gen){
     I <- 1/fitness
     P1 <- P0
-    
+
     for(j in 1:pop.size){
       fragance <- c*(I[j]^a) # Calculo de la fragancia de la mariposa j
-      
+
       r <- runif(1)
       # Para la mejor mariposa actual (Exploracón)
       if(r<p){
@@ -37,30 +36,30 @@ boa_metaheuristic <- function(obj.fun, pop.size=30, dim=5, lb=-5.12, ub=5.12, ge
         indices <- sample(1:pop.size, 2, replace=FALSE)
         k <- indices[1]
         l <- indices[2]
-        
+
         r2 <- runif(1)
         P1[j, ] <- P0[j, ]+(r2^2*P0[k, ]-P0[l, ])*fragance
       }
-      
+
       # Para asegurar que las mariposas no salgan del espacio de búsqueda
       P1[j, ] <- pmax(pmin(P1[j, ], 5.12), -5.12)
     }
     P0 <- P1
     fitness <- apply(P0, 1, obj.fun)
-    
+
     # Actualización del mejor global
     current.bf <- which.min(fitness)
-    
+
     ant.bf <- current.bf
-    
+
     if(fitness[current.bf]<g.best.fit){
       g.best.fit <- fitness[current.bf]
       g.best <- P0[current.bf, ]
     }
-    
+
     # Para actualización de la modalidadad sensorial segun el estándar
     c <- c+0.025/(c*gen)
-    
+
     if (i > 1){
       if (abs(current.bf - ant.bf) < 1e-100){
         patience <- patience + 1
@@ -72,7 +71,7 @@ boa_metaheuristic <- function(obj.fun, pop.size=30, dim=5, lb=-5.12, ub=5.12, ge
         break
       }
     }
-    
+
   }
   return(list(best.solution=g.best, best.fitness=g.best.fit))
 }
