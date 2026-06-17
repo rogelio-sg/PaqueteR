@@ -1,4 +1,4 @@
-# Butterfly Optimization Algorithm
+# Butterfly Optimization Algorithm (BOA)
 
 #---------------------------------------
 #           FUNCIÓN OBJETIVO
@@ -17,11 +17,11 @@ boa_metaheuristic <- function(obj.fun, pop.size=30, dim=5, lb=-5.12, ub=5.12, ge
 
   if(EE==TRUE){
     pop.ee <-  ExplicitExploration(fun=obj.fun, lower=lb, upper=ub, n=pop.size, maxiter=gen, ...)
-    pop <- pop.ee$par
+    P0 <- pop.ee$par
     n.ee <- pop.ee$n.gen
     gen <- gen-n.ee
   }else{
-    pop <- mapply(runif, lb, ub, MoreArgs=list(n=pop.size))
+    P0 <- mapply(runif, lb, ub, MoreArgs=list(n=pop.size))
   }
 
   fitness <- apply(P0, 1, obj.fun, ...)
@@ -73,7 +73,7 @@ boa_metaheuristic <- function(obj.fun, pop.size=30, dim=5, lb=-5.12, ub=5.12, ge
 
     if (i > 1){
       if (abs(current.bf - ant.bf) < 1e-100){
-        patience <- patience + 1
+        patience <- patience+1
       } else {
         patience <- 0
       }
