@@ -1,7 +1,7 @@
 # ================================
 # FireWorks Algorithm Optimization
 #=================================
-fwa.metaheuristic <- function(obj.fun, pop.size=30, dim=2, lb, ub, gen=100, pb=0, EE=FALSE){
+fwa.metaheuristic <- function(obj.fun, pop.size=30, dim=2, lb, ub, gen=100, pb=0, EE=FALSE, ...){
 
   # Patience counter for secondary stopping criterion
   patience <- 0
@@ -19,18 +19,14 @@ fwa.metaheuristic <- function(obj.fun, pop.size=30, dim=2, lb, ub, gen=100, pb=0
 
   # Initial population using Explicit Exploration
   if (EE == TRUE || EE == 1){
-    if (!requireNamespace("EEEA", quietly = TRUE)){
-      message("The EEEA library is not installed. Installing...")
-      install.packages("EEEA", dependencies = TRUE)
-    }
-    library(EEEA)
     # We store the best individuals returned in $par
     res_eeea <- ExplicitExploration(fun=obj.fun, lower=lb, upper=ub, n=pop.size, maxiter=gen)
     P0 <- res_eeea$par
+    gen = gen - res_eeea$n_gen
   }
   # Initial population using randomness
   else{
-    P0 <- matrix(runif(pop.size*dim, min=lb, max=ub), nrow=pop.size, ncol=dim)
+    P0 <- mapply(runif, lb, ub, MoreArgs = list(n = pop.size))
   }
 
   for (g in 1:gen){
@@ -39,7 +35,7 @@ fwa.metaheuristic <- function(obj.fun, pop.size=30, dim=2, lb, ub, gen=100, pb=0
     # Evaluate the population using the objective function
     # ----------------------------------------------------
 
-    fitness <- apply(P0, 1, obj.fun)
+    fitness <- apply(P0, 1, obj.fun, ...)
     fmax <- max(fitness) # Worst result
     fmin <- min(fitness) # Best result
     indice <- which.min(fitness)
@@ -128,7 +124,7 @@ fwa.metaheuristic <- function(obj.fun, pop.size=30, dim=2, lb, ub, gen=100, pb=0
     P_total <- rbind(P0, matriz_sparks, matriz_gauss)
 
     # Evaluate the entire population
-    fitness_total <- apply(P_total, 1, obj.fun)
+    fitness_total <- apply(P_total, 1, obj.fun, ...)
 
     # Hybrid selection (exploration and exploitation)
     order_index <- order(fitness_total)
