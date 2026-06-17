@@ -2,7 +2,7 @@
 #  Algoritmo de Optimización del Perrito de la Pradera (PDO)  #
 # =========================================================== #
 
-pdo_metaheuristic <- function(obj.fun, pop.size = 30, dim = 2, lb, ub, gen = 100, pb = 0, EE = FALSE) {
+pdo_metaheuristic <- function(obj.fun, pop.size = 30, dim = 2, lb, ub, gen = 100, pb = 0, EE = FALSE, ...) {
 
   # Contador de paciencia para criterio de paro secundario
   patience <- 0
@@ -12,25 +12,22 @@ pdo_metaheuristic <- function(obj.fun, pop.size = 30, dim = 2, lb, ub, gen = 100
 
   # 1. Inicialización Población
   if (EE == TRUE) {
-    if (!requireNamespace("EEEA", quietly = TRUE)) {
-      message("La librería 'EEEA' no está instalada. Instalándola...")
-      install.packages("EEEA", dependencies = TRUE)
-    }
-    library(EEEA)
-
     # Crea población inicial por Exploración Explícita
     # Guardamos los mejores individuos devueltos en '$par' dentro de la población 'pop'
-    pop_eeea <- ExplicitExploration(fun = obj.fun, lower = lb, upper = ub, n = pop.size, maxiter = gen)
+    pop_eeea <- ExplicitExploration(fun = obj.fun, lower = lb, upper = ub, n = pop.size, maxiter = gen, ...)
     pop <- pop_eeea$par
+    n_ee <- pop_eeea$n_gen
+
+    gen <- gen - n_ee
 
   } else {
     # Crea población inicial aleatoria (Método Original)
-    pop <- matrix(runif(pop.size * dim, min = lb, max = ub),
-                  nrow = pop.size, ncol = dim, byrow = TRUE)
+    pop <- mapply(runif, lb, ub, MoreArgs = list(n = pop.size))
+
   }
 
   # Evaluar aptitud (fitness) inicial
-  fitness <- apply(pop, 1, obj.fun)
+  fitness <- apply(pop, 1, obj.fun, ...)
 
   # Encontrar el mejor perrito (líder)
   best_idx <- which.min(fitness)
@@ -70,7 +67,7 @@ pdo_metaheuristic <- function(obj.fun, pop.size = 30, dim = 2, lb, ub, gen = 100
       pop[i, ] <- pmax(pmin(pop[i, ], ub), lb)
 
       # Evaluar nueva posición
-      new_fitness <- obj.fun(pop[i, ])
+      new_fitness <- obj.fun(pop,...)
 
       # Actualizar si la nueva posición es mejor
       if (new_fitness < fitness[i]) {
@@ -103,45 +100,3 @@ pdo_metaheuristic <- function(obj.fun, pop.size = 30, dim = 2, lb, ub, gen = 100
 
   return(list(best.fit = best_fit, best.sol = best_pos))
 }
-
-# -------------------------------------------------------------------------
-# Ejemplo de uso: Función de Sphere (Mínimo global en 0)
-# -------------------------------------------------------------------------
-res_normal <- pdo_metaheuristic(
-  obj.fun = funcion,
-  dim = 10,
-  lb = -10,
-  ub = 10,
-  pop.size = 30,
-  gen = 50,
-  EE = FALSE
-)
-
-res_ackley <- pdo_metaheuristic(ackley, pop.size=50, dim=2, lb=-32.768, ub=32.768)
-res_rosenbrock <- pdo_metaheuristic(rosenbrock, pop.size=50, dim=2, lb=-30, ub=30)
-res_sphere <- pdo_metaheuristic(sphere, pop.size=50, dim=2, lb=-100, ub=100)
-res_schwefel <- pdo_metaheuristic(schwefel_1.2, pop.size=50, dim=2, lb=-100, ub=100)
-res_trid <- pdo_metaheuristic(trid, pop.size=50, dim=2, lb=-(10)^2, ub=(10)^2)
-res_griewank <- pdo_metaheuristic(griewank, pop.size=50, dim=2, lb=-600, ub=600)
-res_himmelblau <- pdo_metaheuristic(himmelblau, pop.size=50, dim=2, lb=-5, ub=5)
-
-print("Mejor solución encontrada:")
-print(res_normal$best.sol)
-cat("Valor de la función:", res_normal$best.fit, "\n")
-
-# Graficar convergencia
-plot(res_normal$best.sol, type = "l", col = "blue", lwd = 2,
-     main = "Convergencia de PDO", xlab = "Iteración", ylab = "Mejor Fitness")
-
-# Con Exploracion Explicita
-res_explicita <- pdo_optimizer(
-  obj.fun = funcion,
-  pop.size = 20,
-  dim = 10,
-  lb = -10,
-  ub = 10,
-  gen = 50,
-  EE = TRUE
-)
-cat("Mejor solución encontrada:", res_explicita$best.sol, "\n")
-cat("Valor de la función:", res_explicita$best.fit, "\n")
