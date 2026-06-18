@@ -17,9 +17,9 @@ Authors@R: c(
       comment = c(ORCID = "0009-0002-3497-210X")
     ),
     person(
-      given="Cristina", family="Diaz Esquivel",
+      given="Cristina", family="Díaz Esquivel",
       role = c("aut", "cre", "cph"),
-      email = ""
+      email = "cristinaesquivel959@gmail.com"
     ),
     person(
       given="Angela María", family="Gallegos Martínez",
@@ -43,7 +43,7 @@ LazyData: true
 Imports: EEEA
 Author: Rogelio Salinas Gutiérrez [aut, cre, cph] (ORCID: <https://orcid.org/0000-0002-1669-4460>),
         Pedro Abraham Montoya Calzada [aut, cph] (ORCID: <https://orcid.org/0009-0002-3497-210X>),
-        Cristina Diaz Esquivel [aut, cre, cph],
+        Cristina Díaz Esquivel [aut, cre, cph],
         Angela María Gallegos Martínez [aut, cre, cph],
         Agustín Moreno Cruz [aut, cre, cph],
         Miguel Angel Moreno Urbina [aut, cre, cph]
