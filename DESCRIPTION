@@ -11,22 +11,22 @@ Authors@R: c(
     ),
     person(
       given="Cristina", family="Díaz Esquivel",
-      role = c("aut", "cre", "cph"),
+      role = c("aut", "cph"),
       email = "cristinaesquivel959@gmail.com"
     ),
     person(
       given="Angela María", family="Gallegos Martínez",
-      role = c("aut", "cre", "cph"),
+      role = c("aut", "cph"),
       email = "angygallegosmtz@gmail.com"
     ),
     person(
       given="Agustín", family="Moreno Cruz",
-      role = c("aut", "cre", "cph"),
+      role = c("aut", "cph"),
       email = "agustin.morcr@gmail.com"
     ),
     person(
-      given="Miguel Angel", family="Moreno Urbina,
-      role = c("aut", "cre", "cph")",
+      given="Miguel Angel", family=Moreno Urbina",
+      role = c("aut", "cph"),
       email = "migmorurb@gmail.com"
     ),
     person(
@@ -50,10 +50,10 @@ Encoding: UTF-8
 LazyData: true
 Imports: EEEA
 Author: Rogelio Salinas Gutiérrez [aut, cre, cph],
-        Cristina Díaz Esquivel [aut, cre, cph],
-        Angela María Gallegos Martínez [aut, cre, cph],
-        Agustín Moreno Cruz [aut, cre, cph],
-        Miguel Angel Moreno Urbina [aut, cre, cph],
+        Cristina Díaz Esquivel [aut, cph],
+        Angela María Gallegos Martínez [aut, cph],
+        Agustín Moreno Cruz [aut, cph],
+        Miguel Angel Moreno Urbina [aut, cph],
         Pedro Abraham Montoya Calzada [aut, cph],
         Carlos Alberto López Hernández [aut, cph],
         Ilse Daniela Saldivar Olvera [aut, cph]
