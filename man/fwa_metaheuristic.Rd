@@ -14,7 +14,7 @@
          search space.}
 
 \usage{
-  fwa.metaheuristic(
+  fwa_metaheuristic(
     obj.fun,
     pop.size=30,
     dim=2,
@@ -81,7 +81,7 @@
   pb <- 20
   EE <- TRUE
 
-  res.sphere <- fwa.metaheuristic(obj.fun, pop.size, dim, lb, ub, gen, pb, EE)
+  res.sphere <- fwa_metaheuristic(obj.fun, pop.size, dim, lb, ub, gen, pb, EE)
 
   cat("Best value on Sphere: ", paste(round(res.sphere$best.fit, 4),
       collapse=", "), "\n")

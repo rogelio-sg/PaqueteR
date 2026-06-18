@@ -1,7 +1,7 @@
 # ================================
 # FireWorks Algorithm Optimization
 #=================================
-fwa.metaheuristic <- function(obj.fun, pop.size=30, dim=2, lb, ub, gen=100, pb=0, EE=FALSE, ...){
+fwa_metaheuristic <- function(obj.fun, pop.size=30, dim=2, lb, ub, gen=100, pb=0, EE=FALSE, ...){
 
   # Patience counter for secondary stopping criterion
   patience <- 0
