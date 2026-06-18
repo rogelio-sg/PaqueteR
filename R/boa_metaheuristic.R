@@ -87,7 +87,6 @@ boa_metaheuristic <- function(obj.fun, pop.size=30, dim=5, lb=-5.12, ub=5.12, ge
         patience <- 0
       }
       if (patience >= pb){
-        cat(sprintf("\n[!] Convergencia alcanzada en la generación %d\n", i))
         break
       }
     }
