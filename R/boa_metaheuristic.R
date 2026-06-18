@@ -13,7 +13,7 @@ boa_metaheuristic <- function(obj.fun, pop.size=30, dim=5, lb=-5.12, ub=5.12, ge
   if (length(ub) == 1) ub <- rep(ub, dim)
 
   # For initialize population
-  if(EE==TRUE||EE==1){
+  if(EE == TRUE||EE == 1){
     pop.ee <-  ExplicitExploration(fun=obj.fun, lower=lb, upper=ub, n=pop.size, maxiter=gen, ...)
     P0 <- pop.ee$par
     n.ee <- pop.ee$n.gen
@@ -31,7 +31,17 @@ boa_metaheuristic <- function(obj.fun, pop.size=30, dim=5, lb=-5.12, ub=5.12, ge
   g.best.fit <- fitness[bf]
 
   for(i in 1:gen){
-    I <- 1/fitness
+
+    ant.best.fit <- g.best.fit
+    max.fit <- max(fitness)
+    min.fit <- min(fitness)
+
+    if(max.fit == min.fit){
+      I <- rep(1, pop.size)
+    }else{
+      I <- (max.fit-fitness)/(max.fit-min.fit+1e-10)
+    }
+
     P1 <- P0
 
     for(j in 1:pop.size){
@@ -53,15 +63,14 @@ boa_metaheuristic <- function(obj.fun, pop.size=30, dim=5, lb=-5.12, ub=5.12, ge
       }
 
       # Ensure butterflies remain within the search space
-      P1[j, ] <- pmax(pmin(P1[j, ], 5.12), -5.12)
+      P1[j, ] <- pmax(pmin(P1[j, ], ub), lb)
     }
+
     P0 <- P1
-    fitness <- apply(P0, 1, obj.fun)
+    fitness <- apply(P0, 1, obj.fun, ...)
 
     # Update global best
     current.bf <- which.min(fitness)
-
-    ant.bf <- current.bf
 
     if(fitness[current.bf]<g.best.fit){
       g.best.fit <- fitness[current.bf]
@@ -72,7 +81,7 @@ boa_metaheuristic <- function(obj.fun, pop.size=30, dim=5, lb=-5.12, ub=5.12, ge
     c <- c+0.025/(c*gen)
 
     if (i > 1){
-      if (abs(current.bf - ant.bf) < 1e-100){
+      if (abs(g.best.bf - ant.best.fit) < 1e-100){
         patience <- patience+1
       } else {
         patience <- 0
