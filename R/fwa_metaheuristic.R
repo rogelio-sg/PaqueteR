@@ -163,7 +163,7 @@ fwa.metaheuristic <- function(obj.fun, pop.size=30, dim=2, lb, ub, gen=100, pb=0
           patience <- 0
         }
         if (patience >= pb){
-          cat(sprintf("\n[!] Convergencia alcanzada en la generación %d\n", g))
+          cat(sprintf("\n[!] Convergence reached at generation %d\n", g))
           break
         }
       }
