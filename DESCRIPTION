@@ -7,14 +7,22 @@ Authors@R: c(
     person(
       given="Rogelio", family="Salinas Gutiérrez", 
       role = c("aut", "cre", "cph"),
-      email = "rsalinas@correo.uaa.mx", 
-      comment = c(ORCID = "0000-0002-1669-4460")
+      email = "rsalinas@correo.uaa.mx"
     ),
     person(
       given="Pedro Abraham", family="Montoya Calzada",
       role = c("aut", "cph"),
-      email = "pedro.montoya@edu.uaa.mx",
-      comment = c(ORCID = "0009-0002-3497-210X")
+      email = "pedro.montoya@edu.uaa.mx"
+    ),
+    person(
+      given="Carlos Alberto", family="López Hernández",
+      role = c("aut", "cph"),
+      email = "carlos.lopezh@edu.uaa.mx"
+    ),
+    person(
+      given="Ilse Daniela", family="Saldivar Olvera",
+      role = c("aut", "cph"),
+      email = "al227455@edu.uaa.mx"
     ),
     person(
       given="Cristina", family="Díaz Esquivel",
@@ -41,8 +49,10 @@ License: GPL-3
 Encoding: UTF-8
 LazyData: true
 Imports: EEEA
-Author: Rogelio Salinas Gutiérrez [aut, cre, cph] (ORCID: <https://orcid.org/0000-0002-1669-4460>),
-        Pedro Abraham Montoya Calzada [aut, cph] (ORCID: <https://orcid.org/0009-0002-3497-210X>),
+Author: Rogelio Salinas Gutiérrez [aut, cre, cph],
+        Pedro Abraham Montoya Calzada [aut, cph],
+        Carlos Alberto López Hernández [aut, cph],
+        Ilse Daniela Saldivar Olvera [aut, cph],
         Cristina Díaz Esquivel [aut, cre, cph],
         Angela María Gallegos Martínez [aut, cre, cph],
         Agustín Moreno Cruz [aut, cre, cph],
