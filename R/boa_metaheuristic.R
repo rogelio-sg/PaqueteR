@@ -1,21 +1,18 @@
 # Butterfly Optimization Algorithm (BOA)
 
-#---------------------------------------
-#           FUNCIÓN OBJETIVO
-#---------------------------------------
-obj.fun <- function(x){
-  y <- sum(x^2)
-  return (y)
-}
+# -----------------------------------------
+#  ALGORITHM FUNCTION ( BOA)
+# -----------------------------------------
 
-#---------------------------------------
-#     FUNCIÓN DEL ALGORITMO (BOA)
-#---------------------------------------
 boa_metaheuristic <- function(obj.fun, pop.size=30, dim=5, lb=-5.12, ub=5.12, gen=100, pb=0, EE=FALSE, p=0.8, a=0.1, c=0.01, ...){
 
   patience <- 0
 
-  if(EE==TRUE){
+  # Adjust limits
+  if (length(lb) == 1) lb <- rep(lb, dim)
+  if (length(ub) == 1) ub <- rep(ub, dim)
+
+  if(EE==TRUE||EE==1){
     pop.ee <-  ExplicitExploration(fun=obj.fun, lower=lb, upper=ub, n=pop.size, maxiter=gen, ...)
     P0 <- pop.ee$par
     n.ee <- pop.ee$n.gen
