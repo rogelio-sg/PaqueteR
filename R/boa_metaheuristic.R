@@ -81,7 +81,7 @@ boa_metaheuristic <- function(obj.fun, pop.size=30, dim=5, lb=-5.12, ub=5.12, ge
     c <- c+0.025/(c*gen)
 
     if (i > 1){
-      if (abs(g.best.bf - ant.best.fit) < 1e-100){
+      if (abs(g.best.fit - ant.best.fit) < 1e-6){
         patience <- patience+1
       } else {
         patience <- 0
@@ -95,5 +95,7 @@ boa_metaheuristic <- function(obj.fun, pop.size=30, dim=5, lb=-5.12, ub=5.12, ge
   }
 
   # Results
-  return(list(best.solution=g.best, best.fitness=g.best.fit))
+  return(list(best.sol=g.best, best.fit=g.best.fit))
 }
+
+
