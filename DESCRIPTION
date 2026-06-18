@@ -10,21 +10,6 @@ Authors@R: c(
       email = "rsalinas@correo.uaa.mx"
     ),
     person(
-      given="Pedro Abraham", family="Montoya Calzada",
-      role = c("aut", "cph"),
-      email = "pedro.montoya@edu.uaa.mx"
-    ),
-    person(
-      given="Carlos Alberto", family="López Hernández",
-      role = c("aut", "cph"),
-      email = "carlos.lopezh@edu.uaa.mx"
-    ),
-    person(
-      given="Ilse Daniela", family="Saldivar Olvera",
-      role = c("aut", "cph"),
-      email = "al227455@edu.uaa.mx"
-    ),
-    person(
       given="Cristina", family="Díaz Esquivel",
       role = c("aut", "cre", "cph"),
       email = "cristinaesquivel959@gmail.com"
@@ -43,6 +28,21 @@ Authors@R: c(
       given="Miguel Angel", family="Moreno Urbina,
       role = c("aut", "cre", "cph")",
       email = "migmorurb@gmail.com"
+    ),
+    person(
+      given="Pedro Abraham", family="Montoya Calzada",
+      role = c("aut", "cph"),
+      email = "pedro.montoya@edu.uaa.mx"
+    ),
+    person(
+      given="Carlos Alberto", family="López Hernández",
+      role = c("aut", "cph"),
+      email = "carlos.lopezh@edu.uaa.mx"
+    ),
+    person(
+      given="Ilse Daniela", family="Saldivar Olvera",
+      role = c("aut", "cph"),
+      email = "al227455@edu.uaa.mx"
     )
   )
 License: GPL-3
@@ -50,10 +50,10 @@ Encoding: UTF-8
 LazyData: true
 Imports: EEEA
 Author: Rogelio Salinas Gutiérrez [aut, cre, cph],
-        Pedro Abraham Montoya Calzada [aut, cph],
-        Carlos Alberto López Hernández [aut, cph],
-        Ilse Daniela Saldivar Olvera [aut, cph],
         Cristina Díaz Esquivel [aut, cre, cph],
         Angela María Gallegos Martínez [aut, cre, cph],
         Agustín Moreno Cruz [aut, cre, cph],
-        Miguel Angel Moreno Urbina [aut, cre, cph]
+        Miguel Angel Moreno Urbina [aut, cre, cph],
+        Pedro Abraham Montoya Calzada [aut, cph],
+        Carlos Alberto López Hernández [aut, cph],
+        Ilse Daniela Saldivar Olvera [aut, cph]
