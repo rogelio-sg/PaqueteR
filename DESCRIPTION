@@ -1,16 +1,49 @@
 Package: PaqueteR
 Type: Package
-Title: What the Package Does (Title Case)
+Title: Metaheuristic Algorithms with Explicit Exploration
+Description: Implementation of explicit exploration in different metaheuristic algorithms.
 Version: 0.1.0
 Authors@R: c(
     person(
-      "Jane", "Doe",
-      email = "jane@example.com",
-      role = c("aut", "cre")
+      given="Rogelio", family="Salinas Gutiérrez", 
+      role = c("aut", "cre", "cph"),
+      email = "rsalinas@correo.uaa.mx", 
+      comment = c(ORCID = "0000-0002-1669-4460")
+    ),
+    person(
+      given="Pedro Abraham", family="Montoya Calzada",
+      role = c("aut", "cph"),
+      email = "pedro.montoya@edu.uaa.mx",
+      comment = c(ORCID = "0009-0002-3497-210X")
+    ),
+    person(
+      given="Cristina", family="Diaz Esquivel",
+      role = c("aut", "cre", "cph"),
+      email = ""
+    ),
+    person(
+      given="Angela María", family="Gallegos Martínez",
+      role = c("aut", "cre", "cph"),
+      email = "angygallegosmtz@gmail.com"
+    ),
+    person(
+      given="Agustín", family="Moreno Cruz",
+      role = c("aut", "cre", "cph"),
+      email = "agustin.morcr@gmail.com"
+    ),
+    person(
+      given="Miguel Angel", family="Moreno Urbina,
+      role = c("aut", "cre", "cph")",
+      email = "migmorurb@gmail.com"
     )
   )
-Description: More about what it does (maybe more than one line).
-    Continuation lines should be indented.
-License: What license is it under?
+License: GPL-3
 Encoding: UTF-8
 LazyData: true
+Imports: EEEA
+Author: Rogelio Salinas Gutiérrez [aut, cre, cph] (ORCID: <https://orcid.org/0000-0002-1669-4460>),
+        Pedro Abraham Montoya Calzada [aut, cph] (ORCID: <https://orcid.org/0009-0002-3497-210X>),
+        Cristina Diaz Esquivel [aut, cre, cph],
+        Angela María Gallegos Martínez [aut, cre, cph],
+        Agustín Moreno Cruz [aut, cre, cph],
+        Miguel Angel Moreno Urbina [aut, cre, cph]
