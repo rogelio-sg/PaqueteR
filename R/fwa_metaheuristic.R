@@ -20,7 +20,7 @@ fwa.metaheuristic <- function(obj.fun, pop.size=30, dim=2, lb, ub, gen=100, pb=0
   # Initial population using Explicit Exploration
   if (EE == TRUE || EE == 1){
     # We store the best individuals returned in $par
-    res_eeea <- ExplicitExploration(fun=obj.fun, lower=lb, upper=ub, n=pop.size, maxiter=gen)
+    res_eeea <- ExplicitExploration(fun=obj.fun, lower=lb, upper=ub, n=pop.size, maxiter=gen, ...)
     P0 <- res_eeea$par
     gen = gen - res_eeea$n_gen
   }
