@@ -4,7 +4,7 @@
 #  ALGORITHM FUNCTION ( BOA)
 # -----------------------------------------
 
-boa_metaheuristic <- function(obj.fun, pop.size=30, dim=5, lb=-5.12, ub=5.12, gen=100, pb=0, EE=FALSE, p=0.8, a=0.1, c=0.01, ...){
+boa_metaheuristic <- function(obj.fun, pop.size=30, dim=2, lb, ub, gen=100, pb=0, EE=FALSE, p=0.8, a=0.1, c=0.01, ...){
 
   patience <- 0
 
