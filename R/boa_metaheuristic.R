@@ -1,5 +1,3 @@
-# Butterfly Optimization Algorithm (BOA)
-
 # -----------------------------------------
 #  ALGORITHM FUNCTION ( BOA)
 # -----------------------------------------
