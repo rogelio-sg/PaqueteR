@@ -89,15 +89,15 @@ pdo_metaheuristic <- function(obj.fun, pop.size = 30, dim = 2, lb, ub, gen = 100
           # (Prairie dogs get hungry and explore new areas by performing long jumps)
           pop_new[i, j] <- best_pos[j] - eCB * epsPD - cpd * RL[i, j]
         } else if (t < (2 * gen / 4) && t >= (gen / 4)) {
-          # PHASE 2: BURROW BUILDING (Exploitation)
+          # PHASE 2: BURROW BUILDING (Exploration)
           # (They cooperate with each other to dig safe burrows)
           pop_new[i, j] <- best_pos[j] * pop[sample(1:pop.size, 1), j] * DS * RL[i, j]
         } else if (t < (3 * gen / 4) && t >= (2 * gen / 4)) {
-          # PHASE 3: FOOD ALARM (Communication)
+          # PHASE 3: FOOD ALARM (Exploitation)
           # (They alert each other about food locations using vocal communication sounds)
           pop_new[i, j] <- best_pos[j] * PE * runif(1)
         } else {
-          # PHASE 4: PREDATOR ESCAPE (Escape)
+          # PHASE 4: PREDATOR ESCAPE (Exploitation)
           # (A threat appears and they run desperately to hide)
           pop_new[i, j] <- best_pos[j] - eCB * eps_val - cpd * runif(1)
         }
