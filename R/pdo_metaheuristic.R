@@ -97,7 +97,7 @@ pdo_metaheuristic <- function(obj.fun, pop.size = 30, dim = 2, lb, ub, gen = 100
           # (They alert each other about food locations using vocal communication sounds)
           pop_new[i, j] <- best_pos[j] * PE * runif(1)
         } else {
-          # PHASE 4: PREDATOR ESCAPE (Exploitation)
+          # PHASE 4: PREDATOR ALARM (Exploitation)
           # (A threat appears and they run desperately to hide)
           pop_new[i, j] <- best_pos[j] - eCB * eps_val - cpd * runif(1)
         }
@@ -136,6 +136,7 @@ pdo_metaheuristic <- function(obj.fun, pop.size = 30, dim = 2, lb, ub, gen = 100
         }
         # If the allowed patience (pb) runs out, stop the algorithm early to save computing time
         if (patience >= pb){
+          cat(sprintf("\n[!] Convergence reached at generation %d\n", g))
           break
         }
       }
