@@ -53,8 +53,8 @@ test_that("Pruebas de Control de Fronteras", {
     res <- algo(obj.fun = fn_esfera, dim = 2, lb = lb_asym, ub = ub_asym, gen = 10)
 
     # Comprobar que ninguna coordenada se salga de los límites
-    expect_true(all(res$best.sol >= lb_asym), failure_message = paste(nombre, "violó lb"))
-    expect_true(all(res$best.sol <= ub_asym), failure_message = paste(nombre, "violó ub"))
+    expect_true(all(res$best.sol >= lb_asym), info = paste(nombre, "violó lb"))
+    expect_true(all(res$best.sol <= ub_asym), info = paste(nombre, "violó ub"))
   }
 })
 
