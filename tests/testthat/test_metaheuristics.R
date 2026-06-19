@@ -1,6 +1,6 @@
 library(testthat)
 
-# 1. Definimos una lista con los algoritmos a probar
+# 1. Define a list of the algorithms to test
 algoritmos <- list(
   PDO = pdo_metaheuristic,
   BOA = boa_metaheuristic,
@@ -8,42 +8,42 @@ algoritmos <- list(
   FWA = fwa_metaheuristic
 )
 
-# 2. Definimos funciones objetivo de prueba estándar
+# 2. Define standard benchmark objective functions
 fn_esfera  <- function(x) sum(x^2)
 fn_shifted <- function(x, shift) sum((x - shift)^2)
 
-# --- INICIO DE LA SUITE DE PRUEBAS ---
+# --- START OF THE TEST SUITE ---
 
-test_that("Pruebas de Entrada y Ajuste de Parámetros", {
+test_that("Input and Parameter Adjustment Tests", {
   for (nombre in names(algoritmos)) {
     algo <- algoritmos[[nombre]]
 
-    # Ejecutar con límites como un único valor numérico
+    # Run with boundaries passed as a single numeric value
     res <- algo(obj.fun = fn_esfera, dim = 3, lb = -10, ub = 10, gen = 2)
 
-    # Validar que la solución devuelta tenga la dimensión correcta
+    # Validate that the returned solution has the correct dimension
     expect_length(res$best.sol, 3)
-    # Validar que la solución esté dentro de los límites esperados
-    expect_true(all(res$best.sol >= -10 & res$best.sol <= 10))
+    # Validate that the solution is within the expected boundaries
+    expect_true(all(res$best.sol >= -10 & res$best.sol <= 10), info = paste("Algorithm:", nombre))
   }
 })
 
-test_that("Pruebas de Estructura y Formato de Salida", {
+test_that("Output Structure and Format Tests", {
   for (nombre in names(algoritmos)) {
     algo <- algoritmos[[nombre]]
 
     res <- algo(obj.fun = fn_esfera, dim = 2, lb = -5, ub = 5, gen = 5)
 
-    # Comprobamos que devuelva la estructura correcta
+    # Check that it returns the correct structure
     expect_type(res, "list")
     expect_named(res, c("best.sol", "best.fit"), ignore.order = TRUE)
     expect_length(res$best.fit, 1)
     expect_length(res$best.sol, 2)
-    expect_true(is.numeric(res$best.fit))
+    expect_true(is.numeric(res$best.fit), info = paste("Numeric structure failure in:", nombre))
   }
 })
 
-test_that("Pruebas de Control de Fronteras", {
+test_that("Boundary Control Tests", {
   lb_asym <- c(-2, 1)
   ub_asym <- c(3, 6)
 
@@ -52,41 +52,41 @@ test_that("Pruebas de Control de Fronteras", {
 
     res <- algo(obj.fun = fn_esfera, dim = 2, lb = lb_asym, ub = ub_asym, gen = 10)
 
-    # Comprobar que ninguna coordenada se salga de los límites
-    expect_true(all(res$best.sol >= lb_asym), info = paste(nombre, "paso lb"))
-    expect_true(all(res$best.sol <= ub_asym), info = paste(nombre, "paso ub"))
+    # Check that no coordinate exceeds the boundaries
+    expect_true(all(res$best.sol >= lb_asym), info = paste("LB failure in:", nombre))
+    expect_true(all(res$best.sol <= ub_asym), info = paste("UB failure in:", nombre))
   }
 })
 
-test_that("Pruebas de Robustez ante Argumentos Adicionales (...)", {
+test_that("Robustness Tests for Additional Arguments (...)", {
   for (nombre in names(algoritmos)) {
     algo <- algoritmos[[nombre]]
 
-    # El 'shift = 3' debe viajar a través del algoritmo hasta fn_shifted
+    # 'shift = 3' must travel through the algorithm to fn_shifted
     res <- algo(obj.fun = fn_shifted, dim = 2, lb = -5, ub = 5, gen = 10, shift = 3)
 
-    expect_true(is.numeric(res$best.fit))
-    # Debería aproximarse a las coordenadas del shift (3, 3)
+    expect_true(is.numeric(res$best.fit), info = paste("Type error in:", nombre))
+    # It should approximate the shift coordinates (3, 3)
     expect_equal(res$best.sol, c(3, 3), tolerance = 1.0)
   }
 })
 
-test_that("Pruebas de Criterios de Parada Anticipada con el Parámetro de Paciencia (pb)", {
+test_that("Early Stopping Criteria Tests with the Patience Parameter (pb)", {
   fn_constante <- function(x) 100
 
   for (nombre in names(algoritmos)) {
     algo <- algoritmos[[nombre]]
 
-    # Comprobamos que el algoritmo maneje el estancamiento con pb > 0 sin colapsar
+    # Check that the algorithm handles stagnation with pb > 0 without crashing
     res <- algo(obj.fun = fn_constante, dim = 2, lb = -5, ub = 5, gen = 50, pb = 2)
 
     expect_equal(res$best.fit, 100)
   }
 })
 
-test_that("Pruebas de Integración con Exploración Explícita (EE)", {
+test_that("Integration Tests with Explicit Exploration (EE)", {
 
-  # 1. Creamos la función mock de manera normal
+  # 1. Create the mock function normally
   mock_ee <- function(fun, lower, upper, n, maxiter, ...) {
     return(list(
       par = matrix(runif(n * length(lower), lower, upper), nrow = n),
@@ -95,39 +95,39 @@ test_that("Pruebas de Integración con Exploración Explícita (EE)", {
     ))
   }
 
-  # 2. Inyectamos directamente en el entorno de los algoritmos de forma segura
-  # Usamos el entorno de uno de tus algoritmos para asegurar coincidencia exacta
+  # 2. Inject it directly into the algorithms' environment safely
+  # We use the environment of one of your algorithms to ensure an exact match
   env_algos <- environment(pdo_metaheuristic)
   assign("ExplicitExploration", mock_ee, envir = env_algos)
 
-  # 3. Ejecutamos el bucle de pruebas
+  # 3. Run the test loop
   for (nombre in names(algoritmos)) {
     algo <- algoritmos[[nombre]]
 
-    # Verifica que corra con EE=TRUE sin arrojar errores
+    # Verify that it runs with EE=TRUE without throwing errors
     expect_no_error({
       algo(obj.fun = fn_esfera, dim = 2, lb = -5, ub = 5, gen = 10, EE = TRUE)
     })
   }
 
-  # 4. Limpieza obligatoria al terminar la prueba
+  # 4. Mandatory cleanup after the test finishes
   if (exists("ExplicitExploration", envir = env_algos, inherits = FALSE)) {
     rm("ExplicitExploration", envir = env_algos)
   }
 })
 
-test_that("Pruebas de Convergencia Mínima (Optimización Funcional)", {
-  # Fijamos la semilla para asegurar predictibilidad
+test_that("Minimum Convergence Tests (Functional Optimization)", {
+  # Fix the seed to ensure predictability
   set.seed(42)
 
   for (nombre in names(algoritmos)) {
     algo <- algoritmos[[nombre]]
 
-    # Incrementamos ligeramente el tamaño para darles más estabilidad estocástica
+    # Slightly increase size and generations for stochastic stability
     res <- algo(obj.fun = fn_esfera, pop.size = 40, dim = 2, lb = -5, ub = 5, gen = 150)
 
-    # Óptimo global en x = c(0,0), fitness = 0.
-    # Un umbral de 3.0 es perfecto para validar el comportamiento cooperativo de minimización.
-    expect_lt(res$best.fit, 3.0, label = paste0("res$best.fit de ", nombre))
+    # Global optimum at x = c(0,0), fitness = 0.
+    # A threshold of 3.0 is perfect for validating cooperative minimization behavior.
+    expect_lt(res$best.fit, 1.0, label = paste0("res$best.fit de ", nombre))
   }
 })
