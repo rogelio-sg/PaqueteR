@@ -136,7 +136,6 @@ pdo_metaheuristic <- function(obj.fun, pop.size = 30, dim = 2, lb, ub, gen = 100
         }
         # If the allowed patience (pb) runs out, stop the algorithm early to save computing time
         if (patience >= pb){
-          cat(sprintf("\n[!] Convergence reached early at generation %d\n", t))
           break
         }
       }
