@@ -1,20 +1,20 @@
-\name{fwa_metaheuristic}
+\name{pdo_metaheuristic}
 
-\alias{fwa_metaheuristic}
+\alias{pdo_metaheuristic}
 
-\title{Fireworks Algorithm for Optimization (FWA)}
+\title{Prairie Dog Optimization Algorithm (PDO)}
 
-\description{Provides an implementation of the Fireworks Algorithm (FWA) for
+\description{Provides an implementation of the Prairie Dog Optimization (PDO) algorithm for
              optimization problems.}
 
-\details{The Fireworks Algorithm is a swarm intelligence metaheuristic inspired
-         by the explosion process of fireworks in the night sky. The algorithm
-         maintains a population of "fireworks" (candidate solutions) that
-         explode to generate "sparks" (new search agents) across the feasible
-         search space.}
+\details{The Prairie Dog Optimization algorithm is a swarm intelligence metaheuristic inspired
+         by the biological behaviors of prairie dogs. The algorithm simulates four distinct
+         time-based phases: foraging/exploration using Lévy flights, burrow construction/exploitation
+         via cooperative digging, food alarm communication using vocal alerts, and randomized flight
+         for predator escape to explore and exploit the feasible search space.}
 
 \usage{
-  fwa_metaheuristic(
+  pdo_metaheuristic(
     obj.fun,
     pop.size=30,
     dim=2,
@@ -32,7 +32,7 @@
     over which minimization is to take place.
   }
   \item{pop.size}{
-    An integer specifying the population size (number of initial fireworks).
+    An integer specifying the population size (number of prairie dogs).
   }
   \item{dim}{
     An integer indicating the dimensionality of the search space.
@@ -57,7 +57,7 @@
   }
   \item{...}{
     Additional arguments of the objective function.
-    }
+  }
 }
 
 \value{
@@ -70,8 +70,8 @@
 
 \examples{
   obj.fun <- function (x){
-  y <- sum(x^2)
-  return (y)
+    y <- sum(x^2)
+    return (y)
   }
   pop.size <- 30
   dim <- 2
@@ -81,7 +81,7 @@
   pb <- 20
   EE <- TRUE
 
-  res.sphere <- fwa_metaheuristic(obj.fun, pop.size, dim, lb, ub, gen, pb, EE)
+  res.sphere <- pdo_metaheuristic(obj.fun, pop.size, dim, lb, ub, gen, pb, EE)
 
   cat("Best value on Sphere: ", paste(round(res.sphere$best.fit, 4),
       collapse=", "), "\n")
@@ -90,8 +90,10 @@
 }
 
 \references{
-  Tan, Y., & Zhu, Y. (2010). Fireworks Algorithm for Optimization.
-  In \emph{Advances in Swarm Intelligence} (ICSI 2010). Lecture Notes in
-  Computer Science, vol 6145, pp. 355-364. Springer, Berlin, Heidelberg.
-  \doi{10.1007/978-3-642-13495-1_44}
+  Ezugwu, A. E., Agushaka, J. O., Abualigah, L., Mirjalili, S., & Gandomi, A. H. (2022).
+  Prairie Dog Optimization Algorithm. \emph{Neural Computing and Applications}, vol 34,
+  no. 22, pp. 20017-20065. Springer, London. \doi{10.1007/s00521-022-07530-9}
+
+  Abualigah, L. (2022). Prairie Dog Optimization Algorithm, \emph{MATLAB Central File Exchange}.
+  Retrieved June 2026. URL: https://www.mathworks.com/matlabcentral/fileexchange/110980-prairie-dog-optimization-algorithm
 }
