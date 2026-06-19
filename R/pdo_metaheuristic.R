@@ -1,6 +1,6 @@
-# =========================================================== #
-#  Algoritmo de Optimización del Perrito de la Pradera (PDO)  #
-# =========================================================== #
+# ========================================== #
+#  Prairie Dog Optimization Algorithm (PDO)  #
+# ========================================== #
 
 pdo_metaheuristic <- function(obj.fun, pop.size = 30, dim = 2, lb, ub, gen = 100, pb = 0, EE = FALSE, ...) {
 
