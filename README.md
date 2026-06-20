@@ -59,7 +59,9 @@ devtools::install_github("rogelio-sg/PaqueteR", ref = "dev")
 ## Implemented Algorithms
 
 ### Butterfly Optimization Algorithm (BOA)
+
 Metaheurística basada en el comportamiento biológico de las mariposas, las cuales utilizan su sentido del olfato para determinar la intensidad de una fragancia y navegar hacia fuentes de alimento o pareja potenciales. Soporta ejecución estándar o hibridación con exploración explícita.
+
 ```r
 library(boa_metaheuristic)
 
@@ -91,7 +93,9 @@ result_boa_ee <- boa_metaheuristic(
 ```
 
 ### Fireworks Algorithm (FWA)
+
 Algoritmo de optimización de enjambres inspirado en la explosión de fuegos artificiales. Determina de forma dinámica la cantidad de chispas y la amplitud del radio de explosión para equilibrar la búsqueda global (chispas alejadas) y la búsqueda local (chispas concentradas).
+
 ```r
 library(fwa_metaheuristic)
 
@@ -123,7 +127,9 @@ result_fwa_ee <- fwa_metaheuristica(
 ```
 
 ### Ladybug Beetle Optimization (LBO)
+
 Estrategia estocástica inspirada en el comportamiento y hábitos de supervivencia de las mariquitas. Combina desplazamientos espaciales amplios usando Vuelos de Lévy, procesos de agregación basados en gradientes térmicos artificiales y mecanismos de dispersión selectiva.
+
 ```r
 library(lbo_metaheuristic)
 
@@ -153,7 +159,9 @@ result_lbo_ee <- lbo_metaheuristic(
 ```
 
 ### Prairie Dog Optimization (PDO)
+
 Algoritmo de optimización metaheurístico basado en el comportamiento gregario del perrito de la pradera. Modela matemáticamente cuatro patrones interactivos de conducta social (construcción de madrigueras, forrajeo, respuesta a alarmas por comida y evasión de depredadores) asistido por caminatas aleatorias pesadas.
+
 ```r
 library(pdo_metaheuristic)
 
@@ -191,6 +199,27 @@ All algorithms return a dictionary with the following keys:
 
 ---
 
+## Project Structure
+
+```r
+PaqueteR/
+├── R/
+│   ├── pdo.R                     # Metaheurística Prairie Dog Optimization
+│   ├── boa.R                     # Metaheurística Butterfly Optimization Algorithm
+│   ├── lbo.R                     # Metaheurística Ladybug Beetle Optimization
+│   ├── fwa.R                     # Metaheurística Fireworks Algorithm
+├── man/                          # Páginas de ayuda de R (.Rd) para cada algoritmo
+├── tests/
+│   └── testthat/
+│       └── test_metaheuristics.R # Pruebas de Validación 
+├── DESCRIPTION                   # Metadatos del paquete, dependencias y autores
+├── NAMESPACE                     # Control de funciones exportadas al entorno global
+├── LICENSE                       # Licencia del repositorio
+└── README.md                     # Documentación principal del repositorio
+```
+
+---
+
 ## License
 
 This project is licensed under the GNU General Public License v3.0. See the [LICENSE](LICENSE) file for details.
@@ -202,4 +231,25 @@ This project is licensed under the GNU General Public License v3.0. See the [LIC
 For bug reports and feature requests, open an issue on [GitHub](
 https://github.com/rogelio-sg/PaqueteR/issues).
 
----  
+--- 
+
+## Citation
+
+Si utilizas este software en tus líneas de investigación o publicaciones académicas, por favor incluye la siguiente cita bibliográfica:
+
+```r
+@software{rogelio2026paqueter,
+  title  = {PaqueteR: Recent Metaheuristics and Explicit Exploration Strategies for Global Optimization in R},
+  author = {D{\'\i}az Esquivel, Cristina and Gallegos Mart{\'\i}nez, Angela Mar{\'\i}a and 
+            Moreno Cruz, Agust{\'\i}n and Moreno Urbina, Miguel Angel and
+            Salinas Guti\'errez, Rogelio and Montoya Calzada, Pedro Abraham and 
+            Rivas Hern\'andez, Juan de Dios and Sald\'ivar Olvera, Ilse Daniela},
+  year   = {2026},
+  url    = {https://github.com/rogelio-sg/PaqueteR}
+}
+```
+
+---
+
+**Version:** 1.0.0
+**Authors:** Díaz Esquivel C., Gallegos Martínez A. M., Moreno Cruz A., Moreno Urbina M. Á., Salinas Gutiérrez R., Montoya Calzada P. A., López Hernández C. A. & Saldívar Olvera I. D. — [GitHub](https://github.com/rogelio-sg/PaqueteR)
