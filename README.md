@@ -1,4 +1,3 @@
-
 # PaqueteR
 
 [![R Version](https://img.shields.io/badge/R-4.0+-blue.svg)](https://www.r-project.org/)
@@ -8,44 +7,44 @@
 
 ## Overview
 
-**PaqueteR** es un paquete de R diseñado para la optimización global de funciones continuas mediante algoritmos bio-inspirados y de inteligencia de enjambre. El paquete consolida cuatro metaheurísticas recientes, optimizadas vectorialmente para ofrecer un alto rendimiento computacional en espacios de búsqueda complejos y de alta dimensionalidad.
+**PaqueteR** is an R package designed for global optimization of continuous functions through bio-inspired and swarm intelligence algorithms. The package consolidates four recent metaheuristics, vectorially optimized to deliver high computational performance in complex and high-dimensional search spaces.
 
-Una ventaja clave de esta librería es su **compatibilidad e integración nativa con el paquete EEEA** (*Explicit Exploration Strategy for Evolutionary Algorithms*). Esto permite activar una fase de exploración explícita que diversifica la población basándose en la estabilidad de la distribución del espacio, mitigando el estancamiento prematuro en óptimos locales.
+A key advantage of this library is its **native compatibility and integration with the EEEA package** (*Explicit Exploration Strategy for Evolutionary Algorithms*). This allows activating an explicit exploration phase that diversifies the population based on space distribution stability, mitigating premature stagnation in local optima.
 
 ---
 
 ## Implemented Metaheuristics
 
-El paquete incluye las siguientes cuatro estrategias de optimización:
+The package includes the following four optimization strategies:
 
-* **Butterfly Optimization Algorithm (BOA):** Simula el sistema biológico de percepción de fragancias y olores en las mariposas para alternar dinámicamente entre fases de búsqueda global y local.
-* **Fireworks Algorithm (FWA):** Método de inteligencia de enjambre que emula la explosión de fuegos artificiales, regulando de forma adaptativa el número de chispas y la amplitud de la explosión según la cercanía al óptimo.
-* **Ladybug Beetle Optimization (LBO):** Modela el comportamiento de las mariquitas ante cambios térmicos, incorporando caminatas aleatorias de **Vuelos de Lévy** para exploración, agrupamiento por calor para explotación y selección dinámica por congelamiento.
-* **Prairie Dog Optimization (PDO):** Emula los comportamientos sociales y de comunicación de los perritos de la pradera a través de 4 fases adaptativas: forrajeo con vuelos de Lévy, construcción estocástica de madrigueras, alertas de comida y alertas de depredadores.
+* **Butterfly Optimization Algorithm (BOA):** Simulates the biological fragrance and odor perception system in butterflies to dynamically alternate between global and local search phases.
+* **Fireworks Algorithm (FWA):** A swarm intelligence method that emulates fireworks explosions, adaptively regulating the number of sparks and the explosion amplitude according to proximity to the optimum.
+* **Ladybug Beetle Optimization (LBO):** Models the behavior of ladybugs under thermal changes, incorporating **Lévy Flights** random walks for exploration, heat-based clustering for exploitation, and dynamic freezing selection.
+* **Prairie Dog Optimization (PDO):** Emulates the social and communication behaviors of prairie dogs across 4 adaptive phases: foraging with Lévy flights, stochastic burrow building, food alerts, and predator alerts.
 
 ---
 
 ## Key Features
 
-- **Consolidación de Metaheurísticas Recientes:** Implementación en R de algoritmos de enjambre con nula o escasa presencia previa en el software analítico tradicional.
-- **Hibridación con EEEA:** Parámetro opcional integrado en todas las funciones principales para activar estrategias de exploración explícita.
-- **Mecanismos Estocásticos Avanzados:** Incorporación de Vuelos de Lévy (*Lévy Flights*) para saltar eficientemente barreras locales en paisajes multimodales.
-- **Criterios de Parada Temprana:** Soporte para el parámetro de paciencia (`pb`) que detiene la ejecución si el algoritmo detecta estancamiento, optimizando los tiempos de cómputo.
-- **Suite Automática de Calidad:** Validación e integridad matemática respaldada por pruebas unitarias bajo el framework `testthat`.
+- **Consolidation of Recent Metaheuristics:** R implementation of swarm algorithms with little to no prior presence in traditional analytical software.
+- **Hybridization with EEEA:** Optional parameter integrated into all main functions to activate explicit exploration strategies.
+- **Advanced Stochastic Mechanisms:** Incorporation of Lévy Flights to efficiently jump local barriers in multimodal landscapes.
+- **Early Stopping Criteria:** Support for the patience parameter (`pb`) which halts execution if the algorithm detects stagnation, optimizing computation times.
+- **Automated Quality Suite:** Validation and mathematical integrity backed by unit tests under the `testthat` framework.
 
 ---
 
 ## Installation
 
-Dado que el paquete se encuentra bajo desarrollo activo en la rama `dev`, puedes instalarlo directamente en R utilizando `devtools`:
+Since the package is under active development in the `dev` branch, you can install it directly in R using `devtools`:
 
 ```r
-# Asegúrate de contar con devtools
+# Make sure you have devtools installed
 if (!requireNamespace("devtools", quietly = TRUE)) {
   install.packages("devtools")
 }
 
-# Instalación de la versión de desarrollo
+# Installation of the development version
 devtools::install_github("rogelio-sg/PaqueteR", ref = "dev")
 ```
 
@@ -60,24 +59,24 @@ devtools::install_github("rogelio-sg/PaqueteR", ref = "dev")
 
 ### Butterfly Optimization Algorithm (BOA)
 
-Metaheurística basada en el comportamiento biológico de las mariposas, las cuales utilizan su sentido del olfato para determinar la intensidad de una fragancia y navegar hacia fuentes de alimento o pareja potenciales. Soporta ejecución estándar o hibridación con exploración explícita.
+Metaheuristic based on the biological behavior of butterflies, which use their sense of smell to determine fragrance intensity and navigate towards potential food sources or mates. It supports standard execution or hybridization with explicit exploration.
 
 ```r
 library(boa_metaheuristic)
 
-# Ejecución estándar
+# Standard execution
 result_boa <- boa_metaheuristica(
   objective_function = my_function,
   lower              = rep(-5.12, 10),
   upper              = rep(5.12, 10),
   pop_size           = 30,
   max_iter           = 100,
-  p                  = 0.8,    # Probabilidad de cambio entre búsqueda global y local
-  c                  = 0.01,   # Modalidad sensorial (sensory modality)
-  a                  = 0.1     # Exponente de potencia basado en la intensidad
+  p                  = 0.8,    # Probability of switching between global and local search
+  c                  = 0.01,   # Sensory modality
+  a                  = 0.1     # Power exponent based on intensity
 )
 
-# Con estrategia de exploración explícita (EEEA) y parada temprana
+# With explicit exploration strategy (EEEA) and early stopping
 result_boa_ee <- boa_metaheuristic(
   objective_function = my_function,
   lower              = rep(-5.12, 10),
@@ -87,31 +86,31 @@ result_boa_ee <- boa_metaheuristic(
   p                  = 0.8, 
   c                  = 0.01, 
   a                  = 0.1,
-  EE                 = TRUE,   # Activa la exploración explícita
-  pb                 = 15      # Criterio de parada temprana (paciencia)
+  EE                 = TRUE,   # Activates explicit exploration
+  pb                 = 15      # Early stopping criterion (patience)
 )
 ```
 
 ### Fireworks Algorithm (FWA)
 
-Algoritmo de optimización de enjambres inspirado en la explosión de fuegos artificiales. Determina de forma dinámica la cantidad de chispas y la amplitud del radio de explosión para equilibrar la búsqueda global (chispas alejadas) y la búsqueda local (chispas concentradas).
+Swarm optimization algorithm inspired by fireworks explosions. It dynamically determines the number of sparks and the explosion radius amplitude to balance global search (faraway sparks) and local search (concentrated sparks).
 
 ```r
 library(fwa_metaheuristic)
 
-# Ejecución estándar
+# Standard execution
 result_fwa <- fwa_metaheuristica(
   objective_function = my_function,
   lower              = rep(-10, 5),
   upper              = rep(10, 5),
   pop_size           = 25,
   max_iter           = 150,
-  m1                 = 10,     # Número total de chispas regulares generadas
-  m2                 = 5,      # Número de chispas Gaussianas (mutadas)
-  A_max              = 40      # Amplitud máxima permitida para la explosión
+  m1                 = 10,     # Total number of regular sparks generated
+  m2                 = 5,      # Number of Gaussian (mutated) sparks
+  A_max              = 40      # Maximum allowed amplitude for the explosion
 )
 
-# Con estrategia de exploración explícita (EEEA) y parada temprana
+# With explicit exploration strategy (EEEA) and early stopping
 result_fwa_ee <- fwa_metaheuristica(
   objective_function = my_function,
   lower              = rep(-10, 5),
@@ -121,30 +120,30 @@ result_fwa_ee <- fwa_metaheuristica(
   m1                 = 10,
   m2                 = 5,
   A_max              = 40,
-  EE                 = TRUE,   # Activa la exploración explícita
-  pb                 = 20      # Criterio de parada temprana (paciencia)
+  EE                 = TRUE,   # Activates explicit exploration
+  pb                 = 20      # Early stopping criterion (patience)
 )
 ```
 
 ### Ladybug Beetle Optimization (LBO)
 
-Estrategia estocástica inspirada en el comportamiento y hábitos de supervivencia de las mariquitas. Combina desplazamientos espaciales amplios usando Vuelos de Lévy, procesos de agregación basados en gradientes térmicos artificiales y mecanismos de dispersión selectiva.
+Stochastic strategy inspired by the behavior and survival habits of ladybug beetles. It combines broad spatial displacements using Lévy Flights, aggregation processes based on artificial thermal gradients, and selective scattering mechanisms.
 
 ```r
 library(lbo_metaheuristic)
 
-# Ejecución estándar
+# Standard execution
 result_lbo <- lbo_metaheuristic(
   objective_function = my_function,
   lower              = rep(-5, 10),
   upper              = rep(5, 10),
   pop_size           = 40,
   max_iter           = 200,
-  alpha              = 0.5,    # Factor de escala para los pasos de Lévy
-  beta               = 1.5     # Parámetro de estabilidad para la distribución de Lévy
+  alpha              = 0.5,    # Scaling factor for Lévy steps
+  beta               = 1.5     # Stability parameter for Lévy distribution
 )
 
-# Con estrategia de exploración explícita (EEEA) y parada temprana
+# With explicit exploration strategy (EEEA) and early stopping
 result_lbo_ee <- lbo_metaheuristic(
   objective_function = my_function,
   lower              = rep(-5, 10),
@@ -153,19 +152,19 @@ result_lbo_ee <- lbo_metaheuristic(
   max_iter           = 200,
   alpha              = 0.5,
   beta               = 1.5,
-  EE                 = TRUE,   # Activa la exploración explícita
-  pb                 = 30      # Criterio de parada temprana (paciencia)
+  EE                 = TRUE,   # Activates explicit exploration
+  pb                 = 30      # Early stopping criterion (patience)
 )
 ```
 
 ### Prairie Dog Optimization (PDO)
 
-Algoritmo de optimización metaheurístico basado en el comportamiento gregario del perrito de la pradera. Modela matemáticamente cuatro patrones interactivos de conducta social (construcción de madrigueras, forrajeo, respuesta a alarmas por comida y evasión de depredadores) asistido por caminatas aleatorias pesadas.
+Metaheuristic optimization algorithm based on the gregarious behavior of prairie dogs. It mathematically models four interactive social behavior patterns (burrow building, foraging, food response alerts, and predator avoidance) assisted by heavy random walks.
 
 ```r
 library(pdo_metaheuristic)
 
-# Ejecución estándar
+# Standard execution
 result_pdo <- pdo(
   objective_function = my_function,
   lower              = rep(-5.12, 10),
@@ -174,15 +173,15 @@ result_pdo <- pdo(
   max_iter           = 100
 )
 
-# Con estrategia de exploración explícita (EEEA) y parada temprana
+# With explicit exploration strategy (EEEA) and early stopping
 result_pdo_ee <- pdo(
   objective_function = my_function,
   lower              = rep(-5.12, 10),
   upper              = rep(5.12, 10),
   pop_size           = 35,
   max_iter           = 100,
-  EE                 = TRUE,   # Activa la exploración explícita
-  pb                 = 10      # Criterio de parada temprana (paciencia)
+  EE                 = TRUE,   # Activates explicit exploration
+  pb                 = 10      # Early stopping criterion (patience)
 )
 ```
 
@@ -194,8 +193,8 @@ All algorithms return a dictionary with the following keys:
 
 | Key | Type | Description |
 |-----|------|-------------|
-| `best.sol` | `numeric vector` | Vector multidimensional con la mejor solución u óptimo localizado.|
-| `best.fit` | `numeric` |El valor de aptitud (fitness) correspondiente a la mejor solución encontrada.|
+| `best.sol` | `numeric vector` | Multidimensional vector with the best solution or localized optimum.|
+| `best.fit` | `numeric` |The fitness value corresponding to the best solution found.|
 
 ---
 
@@ -204,18 +203,18 @@ All algorithms return a dictionary with the following keys:
 ```r
 PaqueteR/
 ├── R/
-│   ├── pdo.R                     # Metaheurística Prairie Dog Optimization
-│   ├── boa.R                     # Metaheurística Butterfly Optimization Algorithm
-│   ├── lbo.R                     # Metaheurística Ladybug Beetle Optimization
-│   ├── fwa.R                     # Metaheurística Fireworks Algorithm
-├── man/                          # Páginas de ayuda de R (.Rd) para cada algoritmo
+│   ├── pdo.R                     # Prairie Dog Optimization metaheuristic
+│   ├── boa.R                     # Butterfly Optimization Algorithm metaheuristic
+│   ├── lbo.R                     # Ladybug Beetle Optimization metaheuristic
+│   ├── fwa.R                     # Fireworks Algorithm metaheuristic
+├── man/                          # R documentation files (.Rd) for each algorithm
 ├── tests/
 │   └── testthat/
-│       └── test_metaheuristics.R # Pruebas de Validación 
-├── DESCRIPTION                   # Metadatos del paquete, dependencias y autores
-├── NAMESPACE                     # Control de funciones exportadas al entorno global
-├── LICENSE                       # Licencia del repositorio
-└── README.md                     # Documentación principal del repositorio
+│       └── test_metaheuristics.R # Validation Tests 
+├── DESCRIPTION                   # Package metadata, dependencies, and authors
+├── NAMESPACE                     # Control of functions exported to the global environment
+├── LICENSE                       # Repository license
+└── README.md                     # Repository main documentation
 ```
 
 ---
@@ -235,7 +234,7 @@ https://github.com/rogelio-sg/PaqueteR/issues).
 
 ## Citation
 
-Si utilizas este software en tus líneas de investigación o publicaciones académicas, por favor incluye la siguiente cita bibliográfica:
+If you use this software in your research lines or academic publications, please include the following bibliographic citation:
 
 ```r
 @software{rogelio2026paqueter,
@@ -252,4 +251,5 @@ Si utilizas este software en tus líneas de investigación o publicaciones acad�
 ---
 
 **Version:** 1.0.0
+
 **Authors:** Díaz Esquivel C., Gallegos Martínez A. M., Moreno Cruz A., Moreno Urbina M. Á., Salinas Gutiérrez R., Montoya Calzada P. A., López Hernández C. A. & Saldívar Olvera I. D. — [GitHub](https://github.com/rogelio-sg/PaqueteR)
