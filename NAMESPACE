@@ -1,1 +1,7 @@
-exportPattern("^[[:alpha:]]+")
+exportPattern(boa_metaheuristic)
+exportPattern(fwa_metaheuristic)
+exportPattern(lbo_metaheuristic)
+exportPattern(pdo_metaheuristic)
+importFrom("EEEA", "ExplicitExploration")
+importFrom("stats", "runif", "rnorm")
+importFrom("testthat")

@@ -1,16 +1,59 @@
 Package: PaqueteR
 Type: Package
-Title: What the Package Does (Title Case)
-Version: 0.1.0
+Title: Metaheuristic Algorithms with Explicit Exploration
+Description: Implementation of explicit exploration in different metaheuristic algorithms.
+Version: 1.0.0
 Authors@R: c(
     person(
-      "Jane", "Doe",
-      email = "jane@example.com",
-      role = c("aut", "cre")
+      given="Rogelio", family="Salinas Gutiérrez", 
+      role = c("aut", "cre", "cph"),
+      email = "rsalinas@correo.uaa.mx"
+    ),
+    person(
+      given="Cristina", family="Díaz Esquivel",
+      role = c("aut", "cph"),
+      email = "cristinaesquivel959@gmail.com"
+    ),
+    person(
+      given="Angela María", family="Gallegos Martínez",
+      role = c("aut", "cph"),
+      email = "angygallegosmtz@gmail.com"
+    ),
+    person(
+      given="Agustín", family="Moreno Cruz",
+      role = c("aut", "cph"),
+      email = "agustin.morcr@gmail.com"
+    ),
+    person(
+      given="Miguel Angel", family="Moreno Urbina",
+      role = c("aut", "cph"),
+      email = "migmorurb@gmail.com"
+    ),
+    person(
+      given="Pedro Abraham", family="Montoya Calzada",
+      role = c("aut", "cph"),
+      email = "pedro.montoya@edu.uaa.mx"
+    ),
+    person(
+      given="Carlos Alberto", family="López Hernández",
+      role = c("aut", "cph"),
+      email = "carlos.lopezh@edu.uaa.mx"
+    ),
+    person(
+      given="Ilse Daniela", family="Saldivar Olvera",
+      role = c("aut", "cph"),
+      email = "al227455@edu.uaa.mx"
     )
   )
-Description: More about what it does (maybe more than one line).
-    Continuation lines should be indented.
-License: What license is it under?
+License: GPL-3
 Encoding: UTF-8
 LazyData: true
+Imports: EEEA
+Author: Rogelio Salinas Gutiérrez [aut, cre, cph],
+        Cristina Díaz Esquivel [aut, cph],
+        Angela María Gallegos Martínez [aut, cph],
+        Agustín Moreno Cruz [aut, cph],
+        Miguel Angel Moreno Urbina [aut, cph],
+        Pedro Abraham Montoya Calzada [aut, cph],
+        Carlos Alberto López Hernández [aut, cph],
+        Ilse Daniela Saldivar Olvera [aut, cph]
