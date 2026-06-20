@@ -1,5 +1,5 @@
 # -----------------------------------------
-#  ALGORITHM FUNCTION (LBO)
+#  Ladybug Beetle Optimization (LBO)
 # -----------------------------------------
 lbo_metaheuristic <- function(obj.fun, pop.size=30, dim=2, lb, ub, gen=100, pb=0, EE=FALSE, pa=0.1, sigma=0.05, beta=8, temp.init=100, ...){
 
