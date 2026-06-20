@@ -2,7 +2,7 @@ Package: PaqueteR
 Type: Package
 Title: Metaheuristic Algorithms with Explicit Exploration
 Description: Implementation of explicit exploration in different metaheuristic algorithms.
-Version: 0.1.0
+Version: 1.0.0
 Authors@R: c(
     person(
       given="Rogelio", family="Salinas Gutiérrez", 
