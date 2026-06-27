@@ -7,7 +7,7 @@
 
 ## Overview
 
-**PaqueteR** is an R package designed for global optimization of continuous functions through bio-inspired and swarm intelligence algorithms. The package consolidates four recent metaheuristics, vectorially optimized to deliver high computational performance in complex and high-dimensional search spaces.
+**MetaXR** is an R package designed for global optimization of continuous functions through bio-inspired and swarm intelligence algorithms. The package consolidates four recent metaheuristics, vectorially optimized to deliver high computational performance in complex and high-dimensional search spaces.
 
 A key advantage of this library is its **native compatibility and integration with the EEEA package** (*Explicit Exploration Strategy for Evolutionary Algorithms*). This allows activating an explicit exploration phase that diversifies the population based on space distribution stability, mitigating premature stagnation in local optima.
 
