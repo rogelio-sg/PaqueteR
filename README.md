@@ -1,4 +1,4 @@
-# PaqueteR
+# MetaXR
 
 [![R Version](https://img.shields.io/badge/R-4.0+-blue.svg)](https://www.r-project.org/)
 [![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
